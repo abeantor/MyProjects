@@ -1,0 +1,54 @@
+/*
+Name: Abu Antor
+CISC 3130 
+Assignment 3: Word Frequencies
+
+Prepare a text file that contains text to analyze. It could be song lyrics to your favorite song. 
+With your code, you’ll read from the text file and capture the data into a data structure. 
+Using a data structure, write the code to count the appearance of each unique word in the lyrics.
+Print out a word frequency list. Take a look at the example using Maven to build a Java project 
+with open source dependencies. 
+
+ */
+import java.io.*;
+import java.util.*;
+
+public class WordFrequencies {
+
+    public static void main(String[] args) {
+        System.out.println("Enter File name");
+        Scanner file_name = new Scanner(System.in);
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(file_name.nextLine()));
+            StringBuilder stringBuilder = new StringBuilder();
+            String str;
+            System.out.println("");
+
+            /*
+            Create a Hashmap. In hashmap, we can store key and values. For each
+            key, there will be one value. Here we treat a character as key and 
+            count as its value. Reading each line and words in the file to find 
+            the words. To find frequency of characters, check each character, if
+            it comes first time set the count of that character to 1.
+             */
+            HashMap<String, Integer> Lyrics = new HashMap< String, Integer>();
+            while ((str = reader.readLine()) != null) {
+                String[] arr = str.split(" ");
+
+                for (String line : arr) {
+                    if (Lyrics.containsKey(line)) {
+                        Lyrics.put(line, Lyrics.get(line) + 1);
+                    } else {
+                        Lyrics.put(line, 1);
+                    }
+                }
+            }
+            //Iterate lyrics, and print pairs of the words
+            for (Map.Entry entry : Lyrics.entrySet()) {
+                System.out.println(entry.getValue() + " :" + entry.getKey());
+            }
+        } catch (Exception e) {
+            System.out.print("Exception Occured!!");
+        }
+    }
+}
